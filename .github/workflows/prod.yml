@@ -36,6 +36,6 @@ jobs:
 
                 git config user.name "Github Action Bot"
                 git config user.email "actions@github.com"
-                git add pod.yml
+                git add argocd-lab/pod.yml
                 git commit -m "Update todo image to ${{github.sha}}"
                 git push https://${PAT}@github.com/jamesnagar11/test-staging-ops.git main
