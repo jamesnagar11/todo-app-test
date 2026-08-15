@@ -89,7 +89,7 @@ export default function Home() {
       <div className="max-w-2xl mx-auto px-6 py-16">
         <header className="text-center mb-10">
           <h1 className="text-4xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-            Todo
+            Todo App
           </h1>
           <p className="text-slate-500 dark:text-slate-400 mt-2">Stay focused, stay organized</p>
         </header>
