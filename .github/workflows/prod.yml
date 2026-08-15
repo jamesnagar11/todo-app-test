@@ -1,0 +1,35 @@
+name: Continuous Deployment
+on:
+    push:
+        branches: [ main ]
+jobs:
+    build:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout Code
+              uses: actions/checkout@v2
+              
+            - name: Setup Docker Buildx
+              uses: docker/setup-buildx-action@v2
+            
+            - name: Build and Push
+              uses: docker/build-push-action@v4
+              with:
+                context: .
+                file: ./Dockerfile
+                push: true
+                tags: ${{secrets.DOCKER_USERNAME}}/todo-app-k8s-test:${{github.sha}}
+
+            - name: Clone stag ops repo , update and push
+              env:
+                PAT: ${{secrets.PAT_GITHUB}}
+              run: |
+                git clone https://github.com/jamesnagar11/todo-app-test.git
+                cd todo-app-test
+                sed -i 's|image: jamesnagar/todo-app-k8s-test:*|image: jamesnagar/todo-app-k8s-test:${{github.sha}}' ./argocd-lab/pod.yml
+
+                git config user.name "Github Action Bot"
+                git config user.email "actions@github.com"
+                git add pod.yml
+                git commit -m "Update todo image to ${{github.sha}}"
+                git push https://${PAT}@github.com/jamesnagar11/test-staging-ops.git main
