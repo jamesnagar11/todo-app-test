@@ -30,9 +30,9 @@ jobs:
               env:
                 PAT: ${{secrets.PAT_GITHUB}}
               run: |
-                git clone https://github.com/jamesnagar11/todo-app-test.git
+                git clone https://${PAT}@github.com/jamesnagar11/test-staging-ops.git
                 cd todo-app-test
-                sed -i 's|image: jamesnagar/todo-app-k8s-test:.*|image: jamesnagar/todo-app-k8s-test:${{github.sha}}|' argocd-lab/pod.yml
+                sed -i 's|image: jamesnagar/todo-app-k8s-test:.*|image: jamesnagar/todo-app-k8s-test:${{github.sha}}|' ./argocd-lab/pod.yml
 
                 git config user.name "Github Action Bot"
                 git config user.email "actions@github.com"
