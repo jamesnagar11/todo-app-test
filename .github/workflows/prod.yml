@@ -32,7 +32,7 @@ jobs:
               run: |
                 git clone https://github.com/jamesnagar11/todo-app-test.git
                 cd todo-app-test
-                sed -i 's|image: jamesnagar/todo-app-k8s-test:.*|image: jamesnagar/todo-app-k8s-test:${{github.sha}}|' ./argocd-lab/pod.yml
+                sed -i 's|image: jamesnagar/todo-app-k8s-test:.*|image: jamesnagar/todo-app-k8s-test:${{github.sha}}|' argocd-lab/pod.yml
 
                 git config user.name "Github Action Bot"
                 git config user.email "actions@github.com"
